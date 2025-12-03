@@ -1,8 +1,8 @@
-import { useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { cn } from '@/lib/utils';
 import { useAuth } from '@/contexts/AuthContext';
 import { useHotel } from '@/contexts/HotelContext';
+import { useSidebar } from '@/contexts/SidebarContext';
 import {
   LayoutDashboard,
   Building2,
@@ -45,7 +45,7 @@ const navItems: NavItem[] = [
 ];
 
 export const AppSidebar = () => {
-  const [collapsed, setCollapsed] = useState(false);
+  const { collapsed, setCollapsed } = useSidebar();
   const { user, logout } = useAuth();
   const { selectedHotel, setSelectedHotel, allHotels } = useHotel();
   const location = useLocation();
@@ -57,7 +57,7 @@ export const AppSidebar = () => {
   return (
     <aside
       className={cn(
-        'flex flex-col h-screen bg-sidebar text-sidebar-foreground transition-all duration-300 ease-in-out',
+        'fixed left-0 top-0 flex flex-col h-screen bg-sidebar text-sidebar-foreground transition-all duration-300 ease-in-out z-40',
         collapsed ? 'w-[70px]' : 'w-[260px]'
       )}
     >
